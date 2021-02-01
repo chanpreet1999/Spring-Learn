@@ -10,6 +10,10 @@ public class TodoBean implements ITodoBean {
 	private Date targetDate;
 	private boolean complete;
 	
+	public TodoBean() {
+		super();
+	}
+
 	public TodoBean(int id, String name, String desc, Date targetDate, boolean complete) {
 		super();
 		this.id = id;

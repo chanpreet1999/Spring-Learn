@@ -1,3 +1,5 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <html>
 <head>
 	<title>Add Or Update TODO</title>
@@ -8,13 +10,13 @@
 	
 	<div class="container">
 		Add a TODO here <br />
-		<form method="POST">
+		<form:form method="POST" modelAttribute="todoBean">
 			<fieldset class = "form-group">
-				<label class="form-label">Description</label> 
-				<input type="text" placeholder="Add a Description" name="desc" class = "form-control" required="required" />
+				<form:label class="form-label" path = "desc">Description</form:label> 
+				<form:input type="text" placeholder="Add a Description" class = "form-control" path = "desc" required="required" />
 			</fieldset>
 			<button type="submit" class="btn btn-success" >Add to list</button>
-		</form>
+		</form:form>
 	</div>
 	
 	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
