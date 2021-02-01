@@ -10,12 +10,17 @@
 	
 	<div class="container">
 		Add a TODO here <br />
+		
 		<form:form method="POST" modelAttribute="todoBean">
+			
+			<form:input type = "hidden" path = "id" />
+			
 			<fieldset class = "form-group">
 				<form:label class="form-label" path = "desc">Description</form:label> 
 				<form:input type="text" placeholder="Add a Description" class = "form-control" path = "desc" required="required" />
 				<form:errors path = "desc" cssClass = "text-warning"/>
 			</fieldset>
+		
 			<button type="submit" class="btn btn-success" >Add to list</button>
 		</form:form>
 	</div>

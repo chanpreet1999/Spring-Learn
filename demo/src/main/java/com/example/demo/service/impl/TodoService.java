@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.TodoBean;
@@ -55,6 +57,24 @@ public class TodoService implements ITodoService {
 				iterator.remove();
 			}
 		}
+		
+	}
+
+	@Override
+	public TodoBean retrieveTodo(int id) {
+		
+		for(TodoBean todo : todoList) {
+			if( todo.getId() == id ) {
+				return todo;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void updateTodo(@Valid TodoBean todoBean) {
+		todoList.remove(todoBean);
+		todoList.add(todoBean);
 		
 	}
 }

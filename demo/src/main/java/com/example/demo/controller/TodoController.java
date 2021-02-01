@@ -55,4 +55,25 @@ public class TodoController {
 		service.deleteTodo(id);
 		return "redirect:/show-todos-list";
 	}
+	
+	@RequestMapping(value = "/update-todo", method = RequestMethod.GET)
+	public String gotoUpdateTodo(ModelMap modelMap, @RequestParam int id)
+	{
+		modelMap.put("todoBean", service.retrieveTodo(id));
+		return "todo";
+	}
+	
+	@RequestMapping(value = "/update-todo", method = RequestMethod.POST)
+	public String updateTodo(ModelMap modelMap, @Valid TodoBean todoBean, BindingResult result)
+	{
+		if(result.hasErrors())
+		{
+			return "todo";
+		}
+		
+		String name = (String)modelMap.get("name");
+		todoBean.setName( name );
+		service.updateTodo(todoBean);
+		return "redirect:/show-todos-list";
+	}
 }
