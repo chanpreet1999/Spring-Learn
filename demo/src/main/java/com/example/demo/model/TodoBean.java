@@ -2,10 +2,14 @@ package com.example.demo.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 public class TodoBean implements ITodoBean {
 
 	private int id;
 	private String name;
+	
+	@Size(min=5, message = "Please enter atleast 5 characters")
 	private String desc;
 	private Date targetDate;
 	private boolean complete;
