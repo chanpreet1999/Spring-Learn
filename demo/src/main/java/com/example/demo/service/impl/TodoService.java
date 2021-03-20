@@ -19,7 +19,7 @@ public class TodoService implements ITodoService {
 	private static int id = 3;
 	
 	static {
-		todoList.add( new TodoBean(1, "chan", "finish 10 vids", new Date(),  true) );
+		todoList.add( new TodoBean(1, "chanpreet", "finish 10 vids", new Date(),  true) );
 		todoList.add( new TodoBean(2, "manan", "CFA", new Date(),  false) );
 		todoList.add( new TodoBean(3, "chan", "Learn Spring", new Date(),  false) );
 	}

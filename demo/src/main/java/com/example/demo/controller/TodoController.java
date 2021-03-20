@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -37,15 +39,25 @@ public class TodoController {
 	@RequestMapping(value = "/show-todos-list")
 	public String retirveTodos(ModelMap modelMap)
 	{
-		String name = (String)modelMap.get("name");
+		String name = getLoggedInUsername(modelMap);
 		modelMap.put("todos", service.retrieveTodos(name));
 		return "todos-list";
+	}
+
+	private String getLoggedInUsername(ModelMap modelMap) {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal instanceof UserDetails)
+			return ((UserDetails)principal).getUsername();
+		
+		return principal.toString();
+		
 	}
 	
 	@RequestMapping(value="/add-todo", method = RequestMethod.GET)
 	public String addTodo(ModelMap modelMap)
 	{
-		modelMap.put("todoBean", new TodoBean(0, (String)modelMap.get("name"), "Desc", new Date(), false));
+		modelMap.put("todoBean", new TodoBean(0, getLoggedInUsername(modelMap), "Desc", new Date(), false));
 		return "todo";
 	}
 	
@@ -56,7 +68,7 @@ public class TodoController {
 			return "todo";
 		}
 		
-		service.addTodo((String)modelMap.get("name"), todoBean.getDesc(), todoBean.getTargetDate(), false);
+		service.addTodo(getLoggedInUsername(modelMap), todoBean.getDesc(), todoBean.getTargetDate(), false);
 		return "redirect:/show-todos-list";
 	}
 	
@@ -82,7 +94,7 @@ public class TodoController {
 			return "todo";
 		}
 		
-		String name = (String)modelMap.get("name");
+		String name = getLoggedInUsername(modelMap);
 		todoBean.setName( name );
 		service.updateTodo(todoBean);
 		return "redirect:/show-todos-list";
