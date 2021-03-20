@@ -1,13 +1,17 @@
 package com.example.demo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +26,13 @@ public class TodoController {
 
 	@Autowired
 	ITodoService service;
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	}
 
 	@RequestMapping(value = "/show-todos-list")
 	public String retirveTodos(ModelMap modelMap)
@@ -34,7 +45,7 @@ public class TodoController {
 	@RequestMapping(value="/add-todo", method = RequestMethod.GET)
 	public String addTodo(ModelMap modelMap)
 	{
-		modelMap.put("todoBean", new TodoBean(0, (String)modelMap.get("name"), "", new Date(), false));
+		modelMap.put("todoBean", new TodoBean(0, (String)modelMap.get("name"), "Desc", new Date(), false));
 		return "todo";
 	}
 	
@@ -45,7 +56,7 @@ public class TodoController {
 			return "todo";
 		}
 		
-		service.addTodo((String)modelMap.get("name"), todoBean.getDesc(), new Date(), false);
+		service.addTodo((String)modelMap.get("name"), todoBean.getDesc(), todoBean.getTargetDate(), false);
 		return "redirect:/show-todos-list";
 	}
 	
