@@ -1,6 +1,5 @@
-<html>
-<title>My first jsp</title>
-<body>
+<%@ include file="common/header.jspf" %>
+<%@ include file="common/navigation-bar.jspf" %>
 
 <font color ="red">${errorMessage}</font>
 <form method = "POST">
@@ -8,5 +7,5 @@
 	Password: <input type = "password" name = "password" />
 	<input type = "submit"/>
 </form>
-</body>
-</html>
+
+<%@ include file = "common/footer.jspf"%>

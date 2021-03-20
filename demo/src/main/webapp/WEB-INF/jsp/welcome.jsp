@@ -1,8 +1,7 @@
-<html>
-<title>Welcome Page</title>
-<body>
+<%@ include file="common/header.jspf" %>
+<%@ include file="common/navigation-bar.jspf" %>
 
 WELCOME ${name} <br>
 <a href="/show-todos-list">Click here</a> to view your todos
-</body>
-</html>
+
+<%@ include file="common/footer.jspf" %>
