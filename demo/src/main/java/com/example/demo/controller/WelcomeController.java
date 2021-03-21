@@ -11,18 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.example.demo.service.impl.LoginService;
-import com.example.demo.service.interfaces.ILoginService;
 
 @Controller
-@SessionAttributes("name")
-public class LoginController {
+public class WelcomeController {
 
-	@Autowired
-	ILoginService service;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showLoginPage(ModelMap model) {
+	public String showWelcomePage(ModelMap model) {
 		model.put("name", getLoggedInUsername());
 		return "welcome";
 	}
