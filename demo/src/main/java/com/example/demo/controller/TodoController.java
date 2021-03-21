@@ -23,7 +23,6 @@ import com.example.demo.model.TodoBean;
 import com.example.demo.service.interfaces.ITodoService;
 
 @Controller
-@SessionAttributes("name")
 public class TodoController {
 
 	@Autowired
